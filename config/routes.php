@@ -82,6 +82,11 @@ $routes->scope('/', function (RouteBuilder $builder) {
      * You can remove these routes once you've connected the
      * routes you want in your application.
      */
+
+    $builder->scope('/articles', function (RouteBuilder $builder) {
+        $builder->connect('/tagged/*', ['controller' => 'Articles', 'action' => 'tags']);
+    });
+
     $builder->fallbacks();
 });
 

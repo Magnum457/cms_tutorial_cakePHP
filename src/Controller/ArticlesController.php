@@ -20,7 +20,10 @@ class ArticlesController extends AppController
     }
     public function view($slug = null)
     {
-        $article = $this->Articles->findBySlug($slug)->firstOrFail();
+        $article = $this->Articles
+        ->findBySlug($slug)
+        ->contain('Tags')
+        ->firstOrFail();
         $this->set(compact('article'));
     }
     public function add()
@@ -81,5 +84,18 @@ class ArticlesController extends AppController
             return $this->redirect(['action' => 'index']);
         }
 
+    }
+    public function tags(...$tags)
+    {
+        // Use the ArticleTable to find tagged articles.
+        $articles = $this->Articles->find('tagged', [
+            'tags' => $tags
+        ]);
+
+        // Pass variables into the view template context.
+        $this->set([
+            'articles' => $articles,
+            'tags' => $tags
+        ]);
     }
 }

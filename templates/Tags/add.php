@@ -18,7 +18,6 @@
                 <legend><?= __('Add Tag') ?></legend>
                 <?php
                     echo $this->Form->control('title');
-                    echo $this->Form->control('articles._ids', ['options' => $articles]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
