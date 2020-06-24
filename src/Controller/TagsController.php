@@ -18,6 +18,7 @@ class TagsController extends AppController
      */
     public function index()
     {
+        $this->Authorization->skipAuthorization();
         $tags = $this->paginate($this->Tags);
 
         $this->set(compact('tags'));
@@ -32,6 +33,7 @@ class TagsController extends AppController
      */
     public function view($id = null)
     {
+        $this->Authorization->skipAuthorization();
         $tag = $this->Tags->get($id, [
             'contain' => ['Articles'],
         ]);
@@ -46,6 +48,7 @@ class TagsController extends AppController
      */
     public function add()
     {
+        $this->Authorization->skipAuthorization();
         $tag = $this->Tags->newEmptyEntity();
         if ($this->request->is('post')) {
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());
